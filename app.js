@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const userRouter = require('./router/user')
+const userInfoRouter = require('./router/userInfo')
 
 //创建服务器
 const app = express()
@@ -24,6 +25,13 @@ app.use((req, res, next) => {
 
 //导入路由模块
 app.use('/api', userRouter)
+app.use('/my', userInfoRouter)
+
+//错误级别中间件
+app.use((err, req, res, next) => {
+    //默认错误处理
+    res.cc(err)
+})
 
 //启动服务器
 app.listen(80, () => {
