@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const collectionName = 'writtenpaper';
+const collectionName_paper = 'writtenpaper';
 
 // 创建 schema
 const paperSchema = new mongoose.Schema({
@@ -10,7 +10,7 @@ const paperSchema = new mongoose.Schema({
     email: String
 });
 // 创建 model
-const paperModel = mongoose.model(collectionName, paperSchema);
+const paperModel = mongoose.model(collectionName_paper, paperSchema);
 
 
 // 查找函数

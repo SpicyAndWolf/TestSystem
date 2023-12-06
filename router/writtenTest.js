@@ -3,7 +3,7 @@ const router = express.Router()
 const writtenTest_handler = require('../router_handler/writtenTest')
 
 //获取测试种类
-router.get('/testField', writtenTest_handler.getTestField)
+router.get('/testType', writtenTest_handler.getTestType)
 
 
 //暴露路由

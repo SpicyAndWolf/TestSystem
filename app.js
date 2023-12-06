@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const writtenTestRouter = require('./router/writtenTest')
+const testType_db = require('./db/testType')
 const db = require('./db/index')
 
 //创建服务器
@@ -10,22 +11,15 @@ const app = express()
 app.use(cors())
 
 //配置解析表单数据的中间件,即x-www-form
-app.use(express.urlencoded({ extended: false }))
-
-//利用中间件封装报错函数
-app.use((req, res, next) => {
-    res.cc = (err, status = 1) => {
-        res.send({
-            status,
-            message: err instanceof Error ? err.message : err,
-        })
-    }
-    next()
-});
+app.use(express.urlencoded({ extended: false }));
 
 //连接数据库
 (async function () {
     await db.connectDatabase();
+
+    //测试代码
+    const res = await testType_db.findTestType();
+    console.log(...res);
 })();
 
 //导入路由模块
