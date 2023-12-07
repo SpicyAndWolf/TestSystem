@@ -7,7 +7,7 @@ mongoose.connection.once('open', () => console.log('成功连接TestSystemDB'));
 
 // 建立连接函数
 async function connectDatabase() {
-    return await mongoose.connect(databaseUrl)
+    return mongoose.connect(databaseUrl)
 }
 
 async function closeDatabase() {

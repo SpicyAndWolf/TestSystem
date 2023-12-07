@@ -17,7 +17,7 @@ const testTypeModel = mongoose.model(collectionName_testType, testTypeSchema);
 
 // 查找函数
 async function findTestType() {
-    return await testTypeModel.find({});
+    return testTypeModel.find({});
 }
 
 // 暴露函数

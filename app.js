@@ -16,10 +16,6 @@ app.use(express.urlencoded({ extended: false }));
 //连接数据库
 (async function () {
     await db.connectDatabase();
-
-    //测试代码
-    const res = await testType_db.findTestType();
-    console.log(...res);
 })();
 
 //导入路由模块
