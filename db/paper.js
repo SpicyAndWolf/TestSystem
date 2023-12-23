@@ -1,13 +1,10 @@
 const mongoose = require('mongoose');
-const collectionName = "test_types";
+const collectionName = "papers";
 
 // 创建 schema
 const schema = new mongoose.Schema({
-    area: String,
-    way: [{
-        paperType: String,
-        nameList: [String]
-    }]
+    title:String,
+    area:String
 });
 
 // 创建 model
@@ -16,11 +13,11 @@ const model = mongoose.model(collectionName, schema);
 
 
 // 查找函数
-async function findTestType() {
-    return model.find({});
+async function findPaper(area) {
+    return model.find({}).where('area').equals(area);
 }
 
 // 暴露函数
 module.exports = {
-    findTestType
+    findPaper
 }
