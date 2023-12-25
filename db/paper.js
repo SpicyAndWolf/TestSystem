@@ -34,8 +34,20 @@ async function insertPaper(title_i,area_i) {
     });
 }
 
+async function updatePaper(objectId,title,area) {
+    return model.findByIdAndUpdate(objectId, { "title": title, "area": area })
+    .then(() => {
+    console.log('数据修改成功');
+    })
+    .catch(err => {
+        console.log('数据修改失败：', err);
+    });
+
+}
+
 // 暴露函数
 module.exports = {
     findPaper,
-    insertPaper
+    insertPaper,
+    updatePaper
 }

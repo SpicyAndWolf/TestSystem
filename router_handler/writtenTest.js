@@ -20,8 +20,17 @@ async function insertPaper(req, res) {
     await paper.insertPaper(title, area)
 }
 
+async function updatePaper(req, res) {
+    //从对象中提取各变量的值
+    const { objectId, title, area } = req.body
+
+    //修改数据
+    await paper.updatePaper(objectId, title, area)
+}
+
 module.exports = {
     getTestType,
     getPaper,
-    insertPaper
+    insertPaper,
+    updatePaper
 }
