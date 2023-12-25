@@ -10,8 +10,9 @@ const app = express()
 //配置cors,应对跨域
 app.use(cors())
 
-//配置解析表单数据的中间件,即x-www-form
+//配置解析表单数据的中间件,即x-www-form和json
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 //连接数据库
 (async function () {

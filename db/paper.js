@@ -17,7 +17,25 @@ async function findPaper(area) {
     return model.find({}).where('area').equals(area);
 }
 
+async function insertPaper(title_i,area_i) {
+    //生成实例，准备存入数据库
+    const paperInstance = new model({
+        title: title_i,
+        area:area_i
+    })
+
+    //存入数据库
+    return paperInstance.save()
+    .then(() => {
+    console.log('数据保存成功');
+    })
+    .catch(err => {
+        console.log('数据保存失败：', err);
+    });
+}
+
 // 暴露函数
 module.exports = {
-    findPaper
+    findPaper,
+    insertPaper
 }

@@ -12,11 +12,16 @@ async function getPaper(req, res) {
     res.json(findRes)
 }
 
-// async function insertPaper(req, res) {
+async function insertPaper(req, res) {
+    //从对象中提取各变量的值
+    const { title, area } = req.body
     
-// }
+    //插入数据
+    await paper.insertPaper(title, area)
+}
 
 module.exports = {
     getTestType,
-    getPaper
+    getPaper,
+    insertPaper
 }
