@@ -21,8 +21,8 @@ const schema = new mongoose.Schema({
 const model = mongoose.model(collectionName, schema);
 
 // 查找函数
-async function findAnswerById(id) {
-  return model.find({}).where(id);
+async function findAnswer(content) {
+  return model.find({}).where(content);
 }
 
 async function insertAnswer(paperID_i, userID_i, score_i, answers_i) {
@@ -45,8 +45,21 @@ async function insertAnswer(paperID_i, userID_i, score_i, answers_i) {
     });
 }
 
+async function deleteAnswer(id) {
+  return model
+    .findByIdAndDelete(new mongoose.Types.ObjectId(id))
+    .then(() => {
+      console.log("答案删除成功");
+    })
+    .catch((err) => {
+      console.log("答案删除失败：", err);
+    });
+}
+
+
 // 暴露函数
 module.exports = {
-  findAnswerById,
+  findAnswer,
   insertAnswer,
+  deleteAnswer,
 };

@@ -7,9 +7,9 @@ async function getTestType(req, res) {
   res.json(findRes);
 }
 
-async function getPaperByArea(req, res) {
-  const area = req.query.area;
-  const findRes = await paper.findPaperByArea(area);
+async function getPaper(req, res) {
+  const queryContent = req.query;
+  const findRes = await paper.findPaper(queryContent);
   res.json(findRes);
 }
 
@@ -32,24 +32,24 @@ async function insertAnswer(req, res) {
   res.send("保存成功");
 }
 
-async function getAnswerByPaperId(req, res) {
-  const id = req.query.paperId;
-  const findRes = await answer.findAnswerById({ paperID: id });
+async function getAnswer(req, res) {
+  const queryContent = req.query;
+  const findRes = await answer.findAnswer(queryContent);
   res.json(findRes);
 }
 
-async function getAnswerByUserId(req, res) {
-  const userId = req.query.userId;
-  const findRes = await answer.findAnswerById({ userID: userId });
+async function deleteAnswer(req, res) {
+  const { answerID } = req.body;
+  await answer.deleteAnswer(answerID);
   res.json(findRes);
 }
 
 module.exports = {
   getTestType,
-  getPaperByArea,
+  getPaper,
   insertPaper,
   deletePaper,
   insertAnswer,
-  getAnswerByPaperId,
-  getAnswerByUserId,
+  getAnswer,
+  deleteAnswer,
 };

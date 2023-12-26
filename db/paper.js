@@ -20,8 +20,8 @@ const schema = new mongoose.Schema({
 const model = mongoose.model(collectionName, schema);
 
 // 查找函数
-async function findPaperByArea(area) {
-  return model.find({}).where("area").equals(area);
+async function findPaper(content) {
+  return model.find({}).where(content);
 }
 
 async function insertPaper(title_i, area_i, tag_i, questions_i) {
@@ -45,7 +45,6 @@ async function insertPaper(title_i, area_i, tag_i, questions_i) {
 }
 
 async function deletePaper(id) {
-  console.log(id);
   return model
     .findByIdAndDelete(new mongoose.Types.ObjectId(id))
     .then(() => {
@@ -58,7 +57,7 @@ async function deletePaper(id) {
 
 // 暴露函数
 module.exports = {
-  findPaperByArea,
+  findPaper,
   insertPaper,
   deletePaper,
 };
