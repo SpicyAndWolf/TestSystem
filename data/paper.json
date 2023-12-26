@@ -8,12 +8,14 @@
         "type": "choice",
         "title": "最高的山是什么？",
         "choices": ["理塘", "珠穆朗玛峰", "喜马拉雅山", "泰山"],
-        "correctAnswer": "A"
+        "correctAnswer": "A",
+        "score": 5
       },
       {
         "type": "text",
         "title": "中国现在的情况",
-        "correctAnswer": "正在发展"
+        "correctAnswer": "正在发展",
+        "score": 5
       }
     ]
   },
@@ -26,12 +28,14 @@
         "type": "choice",
         "title": "喜欢吃什么",
         "choices": ["西瓜", "火龙果", "香蕉", "菠萝"],
-        "correctAnswer": "A"
+        "correctAnswer": "A",
+        "score": 5
       },
       {
         "type": "text",
         "title": "说说喜欢的蔬菜",
-        "correctAnswer": "青菜"
+        "correctAnswer": "青菜",
+        "score": 5
       }
     ]
   },
@@ -44,17 +48,20 @@
         "type": "choice",
         "title": "说下最热的季节",
         "choices": ["春", "夏", "秋", "冬"],
-        "correctAnswer": "B"
+        "correctAnswer": "B",
+        "score": 5
       },
       {
         "type": "text",
         "title": "描述一下音乐",
-        "correctAnswer": "喜欢很重要"
+        "correctAnswer": "喜欢很重要",
+        "score": 5
       },
       {
         "type": "text",
         "title": "描述一下美术",
-        "correctAnswer": "喜欢很重要"
+        "correctAnswer": "喜欢很重要",
+        "score": 5
       }
     ]
   }
