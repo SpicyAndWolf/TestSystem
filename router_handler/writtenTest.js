@@ -23,6 +23,9 @@ async function deletePaper(req, res) {
   const { id } = req.body;
   console.log(id);
   await paper.deletePaper(id);
+
+  //同时删除与paper对应的答案
+  await answer.deleteAnswerByPaperID(id);
   res.send("删除成功");
 }
 
@@ -41,8 +44,13 @@ async function getAnswer(req, res) {
 async function deleteAnswer(req, res) {
   const { answerID } = req.body;
   await answer.deleteAnswer(answerID);
-  res.json(findRes);
+  res.send("数据库中已不存在该份答案");
 }
+
+// async function deleteAnswerByPaperID(paperID) {
+//   const findRes = await answer.findAnswer({paperID});
+//   res.json(findRes);
+// }
 
 module.exports = {
   getTestType,

@@ -56,10 +56,21 @@ async function deleteAnswer(id) {
     });
 }
 
+async function deleteAnswerByPaperID(id) {
+  return model
+    .deleteMany({ paperID: id })
+    .then(() => {
+      console.log("答案删除成功");
+    })
+    .catch((err) => {
+      console.log("答案删除失败：", err);
+    });
+}
 
 // 暴露函数
 module.exports = {
   findAnswer,
   insertAnswer,
   deleteAnswer,
+  deleteAnswerByPaperID,
 };
