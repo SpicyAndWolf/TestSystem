@@ -8,6 +8,7 @@ router.get("/Paper/get", writtenTest_handler.getPaper);
 router.post("/Paper/insert", writtenTest_handler.insertPaper);
 router.post("/Paper/delete", writtenTest_handler.deletePaper);
 router.post("/Answer/insert", writtenTest_handler.insertAnswer);
+router.post("/Answer/insertAndCheck", writtenTest_handler.insertAnswerAndCheck);
 router.post("/Answer/delete", writtenTest_handler.deleteAnswer);
 router.get("/Answer/get", writtenTest_handler.getAnswer);
 

@@ -34,5 +34,5 @@ app.use(errorHandler);
 
 //启动服务器
 app.listen(80, () => {
-  console.log(`服务器启动于${3000}端口`);
+  console.log(`服务器启动于80端口`);
 });

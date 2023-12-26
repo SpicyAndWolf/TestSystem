@@ -1,6 +1,7 @@
 const testType = require("../db/testType");
 const paper = require("../db/paper");
 const answer = require("../db/answer");
+const mongoose = require("mongoose");
 
 async function getTestType(req, res) {
   const findRes = await testType.findTestType();
@@ -47,10 +48,31 @@ async function deleteAnswer(req, res) {
   res.send("数据库中已不存在该份答案");
 }
 
-// async function deleteAnswerByPaperID(paperID) {
-//   const findRes = await answer.findAnswer({paperID});
-//   res.json(findRes);
-// }
+async function insertAnswerAndCheck(req, res) {
+  const { paperID, userID, answers } = req.body;
+  let score = 0;
+  console.log(paperID);
+  const paperRes = await paper.findPaperById(paperID);
+  const questions = paperRes.questions;
+  console.log(questions);
+
+  //开始核对选择题答案
+  for (let i = 0; i < questions.length; i++) {
+    if (answers[i].answerType === "choice") {
+      if (answers[i].content === questions[i].correctAnswer) {
+        score += questions[i].score;
+        answers[i].rightOrWrong = true;
+      } else answer[i].rightOrWrong = false;
+    }
+  }
+
+  //插入answer
+  await answer.insertAnswer(paperID, userID, score, answers);
+  res.send({
+    score: score,
+    answers: answers,
+  });
+}
 
 module.exports = {
   getTestType,
@@ -60,4 +82,5 @@ module.exports = {
   insertAnswer,
   getAnswer,
   deleteAnswer,
+  insertAnswerAndCheck,
 };

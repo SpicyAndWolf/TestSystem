@@ -5,6 +5,10 @@ const collectionName = "Answers";
 const answerSchema = new mongoose.Schema({
   answerType: String,
   content: String,
+  rightOrWrong: {
+    type: Boolean,
+    default: null,
+  },
 });
 
 const schema = new mongoose.Schema({

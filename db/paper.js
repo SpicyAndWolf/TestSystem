@@ -7,6 +7,7 @@ const questionSchema = new mongoose.Schema({
   title: String,
   choices: [String],
   correctAnswer: String,
+  score: Number,
 });
 
 const schema = new mongoose.Schema({
@@ -22,6 +23,10 @@ const model = mongoose.model(collectionName, schema);
 // 查找函数
 async function findPaper(content) {
   return model.find({}).where(content);
+}
+
+async function findPaperById(id) {
+  return model.findById(new mongoose.Types.ObjectId(id));
 }
 
 async function insertPaper(title_i, area_i, tag_i, questions_i) {
@@ -60,4 +65,5 @@ module.exports = {
   findPaper,
   insertPaper,
   deletePaper,
+  findPaperById,
 };
