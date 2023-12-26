@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meeting</title>
+</head>
+
+<body>
+<input type="text" id="msg">
+<input type="button" class="join" room="001" value="加入房间001">
+<input type="button" class="join" room="002" value="加入房间002">
+<input type="button" class="leave" room="001" value="离开房间001">
+<input type="button" class="leave" room="002" value="离开房间002">
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    let socket = io.connect('http://127.0.0.1:80/meeting');
+
+    //连接
+    socket.on('connect', function () {
+        console.log('连接成功');
+    });
+
+    //接收服务端信息
+    socket.on('message', function (data) {
+        console.log('客户端收到 : ', data);
+    });
+
+    //给加入房间添加响应函数
+    let joins = document.querySelectorAll(".join");
+    for (let ix = 0; ix < joins.length; ix++) {
+        joins[ix].onclick = function () {
+            const room=this.getAttribute("room")
+            socket.emit('join',room);
+            console.log(room)
+        };
+    }
+
+    //给离开房间添加响应函数
+    let leaves = document.querySelectorAll(".leave");
+    for (let ix = 0; ix < leaves.length; ix++) {
+        leaves[ix].onclick = function () {
+            const room=this.getAttribute("room")
+            socket.emit('leave', room);
+        };
+    }
+</script>
+</body>
+</html>

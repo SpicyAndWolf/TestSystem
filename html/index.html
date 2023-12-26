@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+
 <body>
 <input type="text" id="msg">
 <input type="button" id="send" value="发送">
@@ -11,7 +12,7 @@
  
 <script src="/socket.io/socket.io.js"></script>
 <script>
-    var socket = io.connect('http://localhost:80');
+    var socket = io.connect('http://127.0.0.1:80');
  
     //连接成功时触发
     socket.on('connect', function () {
