@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const databaseUrl = "mongodb://tsAdmin:233@192.168.4.29:27017/TestSystemDB";
+const databaseUrl = "mongodb://tsAdmin:233@110.64.88.36:27017/TestSystemDB";
 
 //添加监听器，检查数据库连接是否成功
 mongoose.connection.on(
