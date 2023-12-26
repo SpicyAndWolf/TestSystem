@@ -2,24 +2,35 @@ const mongoose = require("mongoose");
 const collectionName = "papers";
 
 // 创建 schema
+const questionSchema = new mongoose.Schema({
+  type: String,
+  title: String,
+  choices: [String],
+  correctAnswer: String,
+});
+
 const schema = new mongoose.Schema({
   title: String,
   area: String,
+  tag: String,
+  questions: [questionSchema],
 });
 
 // 创建 model
 const model = mongoose.model(collectionName, schema);
 
 // 查找函数
-async function findPaper(area) {
+async function findPaperByArea(area) {
   return model.find({}).where("area").equals(area);
 }
 
-async function insertPaper(title_i, area_i) {
+async function insertPaper(title_i, area_i, tag_i, questions_i) {
   //生成实例，准备存入数据库
   const paperInstance = new model({
     title: title_i,
     area: area_i,
+    tag: tag_i,
+    questions: questions_i,
   });
 
   //存入数据库
@@ -33,20 +44,21 @@ async function insertPaper(title_i, area_i) {
     });
 }
 
-async function updatePaper(objectId, title, area) {
+async function deletePaper(id) {
+  console.log(id);
   return model
-    .findByIdAndUpdate(objectId, { title: title, area: area })
+    .findByIdAndDelete(new mongoose.Types.ObjectId(id))
     .then(() => {
-      console.log("数据修改成功");
+      console.log("试卷删除成功");
     })
     .catch((err) => {
-      console.log("数据修改失败：", err);
+      console.log("试卷删除失败：", err);
     });
 }
 
 // 暴露函数
 module.exports = {
-  findPaper,
+  findPaperByArea,
   insertPaper,
-  updatePaper,
+  deletePaper,
 };

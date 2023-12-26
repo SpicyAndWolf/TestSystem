@@ -4,15 +4,15 @@
     "userID": "111",
     "answers": [
       {
-        "type": "choice",
+        "answerType": "choice",
         "content": "A"
       },
       {
-        "type": "text",
+        "answerType": "text",
         "content": "中国正在发展"
       },
       {
-        "type": "text",
+        "answerType": "text",
         "content": "新闻"
       }
     ]
@@ -22,11 +22,11 @@
     "userID": "222",
     "answers": [
       {
-        "type": "choice",
+        "answerType": "choice",
         "content": "B"
       },
       {
-        "type": "text",
+        "answerType": "text",
         "content": "中国正在发展"
       }
     ]
@@ -36,11 +36,11 @@
     "userID": "333",
     "answers": [
       {
-        "type": "choice",
+        "answerType": "choice",
         "content": "C"
       },
       {
-        "type": "text",
+        "answerType": "text",
         "content": "中国正在发展"
       }
     ]

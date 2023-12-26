@@ -3,12 +3,13 @@ const router = express.Router();
 const writtenTest_handler = require("../router_handler/writtenTest");
 
 //获取测试种类
-router.get("/testType", writtenTest_handler.getTestType);
-router.get("/paper", writtenTest_handler.getPaper);
-router.post("/insertPaper", writtenTest_handler.insertPaper);
-router.post("/updatePaper", writtenTest_handler.updatePaper);
-router.post("/insertAnswer", writtenTest_handler.insertAnswer);
-router.get("/getAnswer", writtenTest_handler.getAnswer);
+router.get("/testType/get", writtenTest_handler.getTestType);
+router.get("/Paper/getByArea", writtenTest_handler.getPaperByArea);
+router.post("/Paper/insert", writtenTest_handler.insertPaper);
+router.post("/Paper/delete", writtenTest_handler.deletePaper);
+router.post("/Answer/insert", writtenTest_handler.insertAnswer);
+router.get("/Answer/getByUserId", writtenTest_handler.getAnswerByUserId);
+router.get("/Answer/getByPaperId", writtenTest_handler.getAnswerByPaperId);
 
 //暴露路由
 module.exports = router;

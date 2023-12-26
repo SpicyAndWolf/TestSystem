@@ -3,13 +3,17 @@ const collectionName = "Answers";
 
 // 创建 schema
 const answerSchema = new mongoose.Schema({
-  type: String,
+  answerType: String,
   content: String,
 });
 
 const schema = new mongoose.Schema({
   paperID: String,
   userID: String,
+  score: {
+    type: Number,
+    default: 0,
+  },
   answers: [answerSchema],
 });
 
@@ -17,15 +21,16 @@ const schema = new mongoose.Schema({
 const model = mongoose.model(collectionName, schema);
 
 // 查找函数
-async function findAnswer(paperID) {
-  return model.find({}).where("paperID").equals(paperID);
+async function findAnswerById(id) {
+  return model.find({}).where(id);
 }
 
-async function insertAnswer(paperID_i, userID_i, answers_i) {
+async function insertAnswer(paperID_i, userID_i, score_i, answers_i) {
   //生成实例，准备存入数据库
   const answerInstance = new model({
     paperID: paperID_i,
     userID: userID_i,
+    score: score_i,
     answers: answers_i,
   });
 
@@ -42,6 +47,6 @@ async function insertAnswer(paperID_i, userID_i, answers_i) {
 
 // 暴露函数
 module.exports = {
-  findAnswer,
+  findAnswerById,
   insertAnswer,
 };

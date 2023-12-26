@@ -19,10 +19,43 @@
   },
   {
     "title": "2021期末试卷",
-    "area": "数学"
+    "area": "行政测试",
+    "tag": "数量关系",
+    "questions": [
+      {
+        "type": "choice",
+        "title": "喜欢吃什么",
+        "choices": ["西瓜", "火龙果", "香蕉", "菠萝"],
+        "correctAnswer": "A"
+      },
+      {
+        "type": "text",
+        "title": "说说喜欢的蔬菜",
+        "correctAnswer": "青菜"
+      }
+    ]
   },
   {
     "title": "2022期末试卷",
-    "area": "审计"
+    "area": "行政测试",
+    "tag": "数量关系",
+    "questions": [
+      {
+        "type": "choice",
+        "title": "说下最热的季节",
+        "choices": ["春", "夏", "秋", "冬"],
+        "correctAnswer": "B"
+      },
+      {
+        "type": "text",
+        "title": "描述一下音乐",
+        "correctAnswer": "喜欢很重要"
+      },
+      {
+        "type": "text",
+        "title": "描述一下美术",
+        "correctAnswer": "喜欢很重要"
+      }
+    ]
   }
 ]
