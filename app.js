@@ -16,42 +16,48 @@ app.use(
   })
 );
 
+app.use(express.static("public"));
+
 //添加api
 app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "html", "index.html"));
+  res.sendFile(path.join(__dirname, "public", "html", "index.html"));
 });
 
 app.get("/meeting", function (req, res) {
-  res.sendFile(path.join(__dirname, "html", "meeting.html"));
+  res.sendFile(path.join(__dirname, "public", "html", "meeting.html"));
 });
 
 io.of("/meeting").on("connection", function (socket) {
-  let rooms = [];
   console.log("连入一个人员");
 
-  //加入房间
+  // 加入房间
   socket.on("join", function (roomName) {
-    console.log(`Received join event for room ${roomName}`);
     socket.join(roomName);
-    if (!rooms.includes(roomName)) {
-      rooms.unshift(roomName);
-    }
+
+    // 发送响应消息
     io.of("/meeting")
       .to(roomName)
-      .emit("message", `${socket.id} 加入房间 ${roomName}`);
-    console.log(`${socket.id} 加入房间 ${roomName}`);
+      .emit("updateMessage", [`${socket.id} 加入房间 ${roomName}`]);
   });
 
-  //离开房间
+  // 离开房间
   socket.on("leave", function (roomName) {
     socket.leave(roomName);
-    rooms = rooms.filter(function (value) {
-      return value !== roomName;
-    });
+
+    // 发送响应消息
     io.of("/meeting")
       .to(roomName)
-      .emit("message", `${socket.id} 离开房间 ${roomName}`);
-    console.log(`${socket.id} 离开房间 ${roomName}`);
+      .emit("updateMessage", [`${socket.id} 离开房间 ${roomName}`]);
+  });
+
+  // 发送消息事件
+  socket.on("sendMessage", function (data) {
+    const { room, message } = data;
+
+    // 发送消息到指定房间，但不包括发送者本身
+    io.of("/meeting")
+      .to(room)
+      .emit("addComment", [`${socket.id}: ${message} ${room}`]);
   });
 
   //错误响应

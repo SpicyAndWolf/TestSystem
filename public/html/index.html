@@ -12,7 +12,7 @@
  
 <script src="/socket.io/socket.io.js"></script>
 <script>
-    var socket = io.connect('http://127.0.0.1:80');
+    let socket = io.connect('http://127.0.0.1:80');
  
     //连接成功时触发
     socket.on('connect', function () {
@@ -26,13 +26,13 @@
  
     //收到消息时触发
     socket.on('message', function (data) {
-        var node = document.createElement("li");
+        let node = document.createElement("li");
         node.innerHTML = "客户端收到 : " + data;
         document.querySelector("#receive").appendChild(node);
     });
  
     document.querySelector("#send").onclick = function () {
-        var msg = document.querySelector("#msg").value;
+        let msg = document.querySelector("#msg").value;
         socket.send(msg);
     };
 </script>

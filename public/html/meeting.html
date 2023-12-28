@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Meeting</title>
+    <link rel="stylesheet" href="../css/meeting.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <h2>文字面试</h2>
+            <button class="join" room="001">加入房间001</button>
+            <button class="join" room="002">加入房间002</button>
+            <button class="leave" room="001">离开房间001</button>
+            <button class="leave" room="002">离开房间002</button>
+        </div>
+        <div class="right-panel">
+            <div id="chatRoom" class="chat-room"></div>
+            <input type="text" id="msg" placeholder="输入消息">
+            <button id="sendBtn">发送</button>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        let socket = io.connect('http://127.0.0.1:80/meeting');
+        let currentRoom = ''; // 用于记录当前房间
+
+        socket.on('connect', function () {
+            console.log('连接成功');
+        });
+
+        socket.on('addComment', function (messages) {
+    const messagesContainer = document.getElementById('chatRoom');
+    if (messagesContainer) {
+        messages.forEach(message => {
+            const [user, content, room] = message.split(' ');
+            const p = document.createElement('p');
+            p.textContent = `${user} ${content}`;
+            messagesContainer.appendChild(p);
+        });
+
+        // 滚动到聊天框底部
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+});
+
+socket.on('updateMessage', function (messages) {
+    const messagesContainer = document.getElementById('chatRoom');
+    if (messagesContainer) {
+        messages.forEach(message => {
+            const p = document.createElement('p');
+            p.textContent = message;
+            messagesContainer.appendChild(p);
+        });
+
+        // 滚动到聊天框底部
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+});
+
+
+
+        // 给加入房间按钮添加响应函数
+        let joins = document.querySelectorAll(".join");
+        for (let ix = 0; ix < joins.length; ix++) {
+            joins[ix].onclick = function () {
+                const room = this.getAttribute("room");
+                socket.emit('join', room);
+                currentRoom = room; // 更新当前房间
+            };
+        }
+
+        // 给离开房间按钮添加响应函数
+        let leaves = document.querySelectorAll(".leave");
+        for (let ix = 0; ix < leaves.length; ix++) {
+            leaves[ix].onclick = function () {
+                const room = this.getAttribute("room");
+                socket.emit('leave', room);
+                currentRoom = ''; // 离开房间时清空当前房间
+            };
+        }
+
+        // 发送消息
+        const sendBtn = document.getElementById('sendBtn');
+        sendBtn.onclick = function () {
+            const messageInput = document.getElementById('msg');
+            const message = messageInput.value.trim();
+
+            if (message !== '' && currentRoom !== '') {
+                socket.emit('sendMessage', { room: currentRoom, message });
+                messageInput.value = '';
+            }
+        };
+    </script>
+</body>
+
+</html>
+
